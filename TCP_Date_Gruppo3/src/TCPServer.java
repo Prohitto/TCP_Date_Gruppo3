@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class TCPServer extends Thread {
+public class TCPServer {
 	private ServerSocket serversock;
 	
 	public TCPServer (int port) throws IOException {
@@ -20,9 +20,38 @@ public class TCPServer extends Thread {
 		while(true) {
 			try {
 				connection = serversock.accept();
-				System.out.println("Data/ora richiesta da:" +connection.getInetAddress().toString() +connection.getPort());
+				System.out.println("Data/ora richiesta da:" +connection.getInetAddress().toString() +":" +connection.getPort());
 				
+				OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+				
+				Date now = new Date();
+				
+				out.write(now.toString() +"\r\n");
+				out.flush();
+				
+				out.close();
+				connection.shutdownOutput();
+				connection.close();
 			}
+			catch(SocketTimeoutException exception) {
+			}
+			catch(IOException exception) {
+			}
+			finally {
+				if(connection != null) {
+					try {
+						connection.shutdownOutput();
+						connection.close();
+					}
+					catch(IOException exception) {
+					}
+				}
+			}
+		}
+		try {
+			serversock.close();
+		}
+		catch(IOException exception) {
 		}
 	}
 	
