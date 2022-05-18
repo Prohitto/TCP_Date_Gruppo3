@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="TCP_Date_Gruppo3/src"/>
+	<classpathentry kind="output" path="TCP_Date_Gruppo3/bin"/>
+</classpath>

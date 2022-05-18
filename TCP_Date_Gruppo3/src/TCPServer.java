@@ -72,11 +72,12 @@ public class TCPServer extends Thread{
 		int c;
 		
 		try {
-			TCPServer date_server = new TCPServer();
+			TCPServer date_server = new TCPServer();System.out.println("calalco");
 			date_server.start();
 			c = System.in.read();
 			date_server.interrupt();
 			date_server.join();
+			
 		}
 		catch(IOException exception) {
 			System.err.println(exception);
