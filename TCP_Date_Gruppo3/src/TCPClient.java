@@ -11,4 +11,36 @@ public class TCPClient {
 		server_port = port;
 	}
 	
+	public TCPClient (String server) throws IOException {
+		server_name = server;
+		//la porta TCP 13 è la porta del servizio daytime
+		server_port = 13;
+	}
+
+	public String getDaytime () throws SocketTimeoutException, IOException {
+		InputStream stream;
+		String answer = "";
+		String fragment;
+		int n;
+		byte [] buffer = new byte [1024];
+		Socket client_socket = new Socket();
+		InetSocketAddress server_address = new InetSocketAddress(server_name, server_port);
+		client_socket.setSoTimeout(1000); //1000ms = 1s
+		//richiesta di connessione al server (attesa massima di 1 secondo)
+		client_socket.connect(server_address, 1000); //1000ms = 1s
+		//stream di input  per ricezioen dati dal server
+		stream = client_socket.getInputStream();
+		//ciclo di lettura dei dati ricevuti dal server nello stream di input fino alla chiusura da pa rte del server
+		while (( n = stream.read(buffer) ) != -1 ) {
+			fragment = new String (buffer, 0, n ,"UTF-8");
+			answer = answer + fragment;
+		}
+		//chiususra dello stream di ricezione dei dati e dei socket di connessione al server
+		stream.close();
+		client_socket.close();
+		return answer;
+
+	}
+
+
 }
