@@ -42,5 +42,31 @@ public class TCPClient {
 
 	}
 
+	public static void main (String args[]){
+		String server;
+		int port;
+		String daytime;
+		TCPClient client ;
+		if (args.length != 3) {
+			server = "127.0.0.1"; //localhost
+			port = 13; //porta TCP standard del servizio daytime
+		}
+		else{
+			server = args[0];
+			port = Integer.parseInt(args[1]);
+		}
+		try {
+			client = new TCPClient(server, port);
+			daytime = client.getDaytime();
+			System.out.println(daytime);
+		}
+		catch (SocketTimeoutException exception) {
+			System.err.println(exception);
+		}
+		catch (IOException exception) {
+			System.err.println(exception);
+		}
+
+	}
 
 }
