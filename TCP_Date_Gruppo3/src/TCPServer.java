@@ -84,7 +84,8 @@ public class TCPServer extends Thread{
 			TCPServer date_server = new TCPServer();
 			date_server.start();			//start cerca per il metodo di TCPServer chiamato run e lo esegue
 			System.out.println("metodo run avviato");
-			c = System.in.read();				//ricezione dati del client
+			c = System.in.read();			//ricezione dati del client
+			System.out.println(c);
 			date_server.interrupt();		//interruzione del thread del socket
 			date_server.join();				//aspetta che il thread si chiuda 
 			

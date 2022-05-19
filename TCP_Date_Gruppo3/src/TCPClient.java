@@ -25,27 +25,31 @@ public class TCPClient {
 	
 	public String getDaytime () throws SocketTimeoutException, IOException {		//metodo che permette la connessione col server per la ricezione della data e ora
 		InputStream stream;			//oggetto InputStream usato per inviare il pacchetto
-		String answer = "";			//stringa contenente il messaggio da inviare
+		String answer = "";			
 		String fragment;			
-		int n;
+		int n;						
 		byte [] buffer = new byte [1024];
 		
 	//--------------------------------------------------------------------------------------------------//
 		
 		Socket client_socket = new Socket();
 		InetSocketAddress server_address = new InetSocketAddress(server_name, server_port);
+
 		client_socket.setSoTimeout(1000); //1000ms = 1s
 		//richiesta di connessione al server (attesa massima di 1 secondo)
-		client_socket.connect(server_address, 1000); //1000ms = 1s
-		//stream di input  per ricezioen dati dal server
+
+		client_socket.connect(server_address, 1000); 		//connessione al server
+		//stream di input  per ricezione dati dal server
+
 		stream = client_socket.getInputStream();
 	
 	//--------------------------------------------------------------------------------------------------//
 		
-		//ciclo di lettura dei dati ricevuti dal server nello stream di input fino alla chiusura da parte del server
-		while (( n = stream.read(buffer) ) != -1 ) {
+		while ( ( n = stream.read(buffer) ) != -1 ) {		//ciclo di lettura dei dati ricevuti dal server nello stream di input fino alla chiusura da parte del server
+
 			fragment = new String (buffer, 0, n ,"UTF-8");
 			answer = answer + fragment;
+			
 		}
 		
 	//--------------------------------------------------------------------------------------------------//
@@ -67,9 +71,11 @@ public class TCPClient {
 		
 		
 		try {
+
 			client = new TCPClient(server, port);
 			daytime = client.getDaytime();
 			System.out.println(daytime);
+			
 		}
 		catch (SocketTimeoutException exception) {
 			System.err.println(exception);
