@@ -3,19 +3,19 @@ import java.net.*;
 
 public class TCPClient {
 	
-	private String server_name;
-	private int server_port;
+	private String server_name;			//variabile contenente il nome del server
+	private int server_port;		//variabile contenente il numero di porta
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	public TCPClient (String server, int port) throws IOException {
+	public TCPClient (String server, int port) throws IOException {			//costruttore costruttore che ha come input esterni il nome del server e il numero di porta
 		server_name=server;
 		server_port = port;
 	}
 	
 	//--------------------------------------------------------------------------------------------------//
 	
-	public TCPClient (String server) throws IOException {
+	public TCPClient (String server) throws IOException {		//costruttore che ha come input esterno il nome del server
 		server_name = server;
 		//la porta TCP 13 è la porta del servizio daytime
 		server_port = 13;
@@ -23,10 +23,10 @@ public class TCPClient {
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	public String getDaytime () throws SocketTimeoutException, IOException {
-		InputStream stream;
-		String answer = "";
-		String fragment;
+	public String getDaytime () throws SocketTimeoutException, IOException {		//metodo che permette la connessione col server per la ricezione della data e ora
+		InputStream stream;			//oggetto InputStream usato per inviare il pacchetto
+		String answer = "";			//stringa contenente il messaggio da inviare
+		String fragment;			
 		int n;
 		byte [] buffer = new byte [1024];
 		
@@ -39,10 +39,10 @@ public class TCPClient {
 		client_socket.connect(server_address, 1000); //1000ms = 1s
 		//stream di input  per ricezioen dati dal server
 		stream = client_socket.getInputStream();
-		//ciclo di lettura dei dati ricevuti dal server nello stream di input fino alla chiusura da pa rte del server
 	
 	//--------------------------------------------------------------------------------------------------//
 		
+		//ciclo di lettura dei dati ricevuti dal server nello stream di input fino alla chiusura da parte del server
 		while (( n = stream.read(buffer) ) != -1 ) {
 			fragment = new String (buffer, 0, n ,"UTF-8");
 			answer = answer + fragment;

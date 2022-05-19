@@ -4,18 +4,18 @@ import java.util.*;
 
 public class TCPServer extends Thread{
 	
-	private ServerSocket serversock;		//ServerSocket è la classe che crea il socket TCP di un server
+	private ServerSocket serversock;		//ServerSocket e' la classe che crea il socket TCP di un server
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	public TCPServer (int port) throws IOException {		//costruttore in cui viene richiesta un numero di porta come input esterno
 		serversock = new ServerSocket(port);
-		serversock.setSoTimeout(1000);		//indica il tempo in cui il socket rimarrà aperto se non riceve nessuna richiesta
+		serversock.setSoTimeout(1000);		//indica il tempo in cui il socket rimarra' aperto se non riceve nessuna richiesta
 	}
 	
 	public TCPServer () throws IOException {		//costruttore senza input esterni in cui prende la porta standard del protocollo TCP , (13) 
 		serversock = new ServerSocket(13);
-		serversock.setSoTimeout(1000);		//indica il tempo in cui il socket rimarrà aperto se non riceve nessuna richiesta
+		serversock.setSoTimeout(1000);		//indica il tempo in cui il socket rimarra' aperto se non riceve nessuna richiesta
 	}
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -23,7 +23,7 @@ public class TCPServer extends Thread{
 	public void run () {
 		Socket connection = null;		//creazione di un oggetto di tipo socket
 		
-		while( !Thread.interrupted() ) {		//fa le seguenti azioni finche il thread non è interrotto
+		while( !Thread.interrupted() ) {		//fa le seguenti azioni finche il thread non e' interrotto
 			
 	//--------------------------------------------------------------------------------------------------//
 			
