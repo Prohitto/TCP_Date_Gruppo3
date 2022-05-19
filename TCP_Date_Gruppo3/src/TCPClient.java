@@ -24,9 +24,10 @@ public class TCPClient {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	public String getDaytime () throws SocketTimeoutException, IOException {		//metodo che permette la connessione col server per la ricezione della data e ora
+		
 		InputStream stream;			//oggetto InputStream usato per inviare il pacchetto
 		String answer = "";			
-		String fragment;			
+		String fragment;			//variabile che conterra' cio' che verra' ricevuto dal server
 		int n;						
 		byte [] buffer = new byte [1024];
 		
@@ -39,13 +40,13 @@ public class TCPClient {
 		//richiesta di connessione al server (attesa massima di 1 secondo)
 
 		client_socket.connect(server_address, 1000); 		//connessione al server
+		
 		//stream di input  per ricezione dati dal server
-
 		stream = client_socket.getInputStream();
 	
 	//--------------------------------------------------------------------------------------------------//
 		
-		while ( ( n = stream.read(buffer) ) != -1 ) {		//ciclo di lettura dei dati ricevuti dal server nello stream di input fino alla chiusura da parte del server
+		while ( ( n = stream.read( buffer ) ) != -1 ) {		//ciclo di lettura dei dati ricevuti dal server nello stream di input fino alla chiusura da parte del server
 
 			fragment = new String (buffer, 0, n ,"UTF-8");
 			answer = answer + fragment;
@@ -63,17 +64,16 @@ public class TCPClient {
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	public static void main (String args[]){
+	public static void main (String args[]) {
 		String server = "127.0.0.1";
 		int port = 13;
 		String daytime;
 		TCPClient client ;
 		
-		
 		try {
 
-			client = new TCPClient(server, port);
-			daytime = client.getDaytime();
+			client = new TCPClient(server, port);		//instanziazione dell' oggetto client
+			daytime = client.getDaytime();				//inserimento della risposta del server con la data e ora corrente in daytime
 			System.out.println(daytime);
 			
 		}
